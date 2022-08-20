@@ -180,3 +180,103 @@ margin_top = 144.0
 margin_right = 184.0
 margin_bottom = 158.0
 text = "Resources Remaining: 0000"
+
+[node name="PlayerStatus" type="PanelContainer" parent="CanvasLayer"]
+margin_right = 14.0
+margin_bottom = 14.0
+theme = ExtResource( 8 )
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/PlayerStatus"]
+margin_right = 344.0
+margin_bottom = 130.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/PlayerStatus/MarginContainer"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 334.0
+margin_bottom = 120.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/PlayerStatus/MarginContainer/HBoxContainer"]
+margin_right = 145.0
+margin_bottom = 110.0
+
+[node name="Label" type="Label" parent="CanvasLayer/PlayerStatus/MarginContainer/HBoxContainer/VBoxContainer"]
+margin_right = 145.0
+margin_bottom = 14.0
+text = "Resources"
+
+[node name="NitrogenCollected" type="Label" parent="CanvasLayer/PlayerStatus/MarginContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+margin_top = 24.0
+margin_right = 145.0
+margin_bottom = 38.0
+text = "Nitrogen: 0 (+0/sec)"
+
+[node name="PotassiumCollected2" type="Label" parent="CanvasLayer/PlayerStatus/MarginContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+margin_top = 48.0
+margin_right = 145.0
+margin_bottom = 62.0
+text = "Potassium: 0 (+0/sec)"
+
+[node name="PhosphatesCollected3" type="Label" parent="CanvasLayer/PlayerStatus/MarginContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+margin_top = 72.0
+margin_right = 145.0
+margin_bottom = 86.0
+text = "Phosphates: 0 (+0/sec)"
+
+[node name="WaterCollected4" type="Label" parent="CanvasLayer/PlayerStatus/MarginContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+margin_top = 96.0
+margin_right = 145.0
+margin_bottom = 110.0
+text = "Water: 0 (+0/sec)"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/PlayerStatus/MarginContainer/HBoxContainer"]
+margin_left = 155.0
+margin_right = 246.0
+margin_bottom = 110.0
+
+[node name="Label" type="Label" parent="CanvasLayer/PlayerStatus/MarginContainer/HBoxContainer/VBoxContainer2"]
+margin_right = 91.0
+margin_bottom = 14.0
+text = "Growths"
+
+[node name="HealthyGrowths" type="Label" parent="CanvasLayer/PlayerStatus/MarginContainer/HBoxContainer/VBoxContainer2"]
+unique_name_in_owner = true
+margin_top = 24.0
+margin_right = 91.0
+margin_bottom = 38.0
+text = "Healthy: 000"
+
+[node name="WitheredGrowths" type="Label" parent="CanvasLayer/PlayerStatus/MarginContainer/HBoxContainer/VBoxContainer2"]
+unique_name_in_owner = true
+margin_top = 48.0
+margin_right = 91.0
+margin_bottom = 62.0
+text = "Withered: 000"
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="CanvasLayer/PlayerStatus/MarginContainer/HBoxContainer"]
+margin_left = 256.0
+margin_right = 324.0
+margin_bottom = 110.0
+
+[node name="Label" type="Label" parent="CanvasLayer/PlayerStatus/MarginContainer/HBoxContainer/VBoxContainer3"]
+margin_right = 68.0
+margin_bottom = 14.0
+text = "Enemies"
+
+[node name="EnemiesKilled" type="Label" parent="CanvasLayer/PlayerStatus/MarginContainer/HBoxContainer/VBoxContainer3"]
+unique_name_in_owner = true
+margin_top = 24.0
+margin_right = 68.0
+margin_bottom = 38.0
+text = "Killed: 000"
+
+[node name="EnemiesAlive" type="Label" parent="CanvasLayer/PlayerStatus/MarginContainer/HBoxContainer/VBoxContainer3"]
+unique_name_in_owner = true
+margin_top = 48.0
+margin_right = 68.0
+margin_bottom = 62.0
+text = "Alive: 000"
