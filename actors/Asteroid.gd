@@ -3,6 +3,7 @@ extends Node2D
 export var data_resource: Resource
 
 var data: AsteroidData
+var growth
 
 onready var _area2d: Area2D = $"Area2D"
 onready var _collision_shape: CollisionShape2D = $"Area2D/CollisionShape2D"

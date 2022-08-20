@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://actors/Asteroid.tscn" type="PackedScene" id=1]
 [ext_resource path="res://data/asteroids/starter.tres" type="Resource" id=2]
@@ -22,6 +22,9 @@ bg_color = Color( 0.211765, 0.682353, 0.486275, 1 )
 
 [sub_resource type="StyleBoxFlat" id=4]
 bg_color = Color( 0.0941176, 0.454902, 0.596078, 1 )
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0.211765, 0.682353, 0.486275, 1 )
 
 [node name="Node2D" type="Node2D"]
 
@@ -68,38 +71,42 @@ script = ExtResource( 9 )
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/SelectedAsteroid"]
 self_modulate = Color( 1, 1, 1, 0.784314 )
-margin_right = 204.0
+margin_right = 379.0
 margin_bottom = 178.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource( 8 )
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/SelectedAsteroid/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/SelectedAsteroid/MarginContainer"]
 margin_left = 10.0
 margin_top = 10.0
-margin_right = 194.0
+margin_right = 369.0
 margin_bottom = 168.0
 
-[node name="Label" type="Label" parent="CanvasLayer/SelectedAsteroid/MarginContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/SelectedAsteroid/MarginContainer/HBoxContainer"]
+margin_right = 184.0
+margin_bottom = 158.0
+
+[node name="Label" type="Label" parent="CanvasLayer/SelectedAsteroid/MarginContainer/HBoxContainer/VBoxContainer"]
 margin_right = 184.0
 margin_bottom = 14.0
 text = "Asteroid"
 align = 1
 
-[node name="Nitrogen" type="HBoxContainer" parent="CanvasLayer/SelectedAsteroid/MarginContainer/VBoxContainer"]
+[node name="Nitrogen" type="HBoxContainer" parent="CanvasLayer/SelectedAsteroid/MarginContainer/HBoxContainer/VBoxContainer"]
 margin_top = 24.0
 margin_right = 184.0
 margin_bottom = 44.0
 alignment = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/SelectedAsteroid/MarginContainer/VBoxContainer/Nitrogen"]
+[node name="Label" type="Label" parent="CanvasLayer/SelectedAsteroid/MarginContainer/HBoxContainer/VBoxContainer/Nitrogen"]
 margin_left = 19.0
 margin_top = 3.0
 margin_right = 74.0
 margin_bottom = 17.0
 text = "Nitrogen"
 
-[node name="NitrogenAmount" type="ProgressBar" parent="CanvasLayer/SelectedAsteroid/MarginContainer/VBoxContainer/Nitrogen"]
+[node name="NitrogenAmount" type="ProgressBar" parent="CanvasLayer/SelectedAsteroid/MarginContainer/HBoxContainer/VBoxContainer/Nitrogen"]
 unique_name_in_owner = true
 margin_left = 84.0
 margin_right = 184.0
@@ -109,20 +116,20 @@ custom_styles/fg = SubResource( 1 )
 value = 10.0
 percent_visible = false
 
-[node name="Potassium" type="HBoxContainer" parent="CanvasLayer/SelectedAsteroid/MarginContainer/VBoxContainer"]
+[node name="Potassium" type="HBoxContainer" parent="CanvasLayer/SelectedAsteroid/MarginContainer/HBoxContainer/VBoxContainer"]
 margin_top = 54.0
 margin_right = 184.0
 margin_bottom = 74.0
 alignment = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/SelectedAsteroid/MarginContainer/VBoxContainer/Potassium"]
+[node name="Label" type="Label" parent="CanvasLayer/SelectedAsteroid/MarginContainer/HBoxContainer/VBoxContainer/Potassium"]
 margin_left = 7.0
 margin_top = 3.0
 margin_right = 74.0
 margin_bottom = 17.0
 text = "Potassium"
 
-[node name="PotassiumAmount" type="ProgressBar" parent="CanvasLayer/SelectedAsteroid/MarginContainer/VBoxContainer/Potassium"]
+[node name="PotassiumAmount" type="ProgressBar" parent="CanvasLayer/SelectedAsteroid/MarginContainer/HBoxContainer/VBoxContainer/Potassium"]
 unique_name_in_owner = true
 margin_left = 84.0
 margin_right = 184.0
@@ -132,19 +139,19 @@ custom_styles/fg = SubResource( 2 )
 value = 10.0
 percent_visible = false
 
-[node name="Phosphates" type="HBoxContainer" parent="CanvasLayer/SelectedAsteroid/MarginContainer/VBoxContainer"]
+[node name="Phosphates" type="HBoxContainer" parent="CanvasLayer/SelectedAsteroid/MarginContainer/HBoxContainer/VBoxContainer"]
 margin_top = 84.0
 margin_right = 184.0
 margin_bottom = 104.0
 alignment = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/SelectedAsteroid/MarginContainer/VBoxContainer/Phosphates"]
+[node name="Label" type="Label" parent="CanvasLayer/SelectedAsteroid/MarginContainer/HBoxContainer/VBoxContainer/Phosphates"]
 margin_top = 3.0
 margin_right = 74.0
 margin_bottom = 17.0
 text = "Phosphates"
 
-[node name="PhosphatesAmount" type="ProgressBar" parent="CanvasLayer/SelectedAsteroid/MarginContainer/VBoxContainer/Phosphates"]
+[node name="PhosphatesAmount" type="ProgressBar" parent="CanvasLayer/SelectedAsteroid/MarginContainer/HBoxContainer/VBoxContainer/Phosphates"]
 unique_name_in_owner = true
 margin_left = 84.0
 margin_right = 184.0
@@ -154,20 +161,20 @@ custom_styles/fg = SubResource( 3 )
 value = 10.0
 percent_visible = false
 
-[node name="Water" type="HBoxContainer" parent="CanvasLayer/SelectedAsteroid/MarginContainer/VBoxContainer"]
+[node name="Water" type="HBoxContainer" parent="CanvasLayer/SelectedAsteroid/MarginContainer/HBoxContainer/VBoxContainer"]
 margin_top = 114.0
 margin_right = 184.0
 margin_bottom = 134.0
 alignment = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/SelectedAsteroid/MarginContainer/VBoxContainer/Water"]
+[node name="Label" type="Label" parent="CanvasLayer/SelectedAsteroid/MarginContainer/HBoxContainer/VBoxContainer/Water"]
 margin_left = 54.0
 margin_top = 3.0
 margin_right = 74.0
 margin_bottom = 17.0
 text = "Ice"
 
-[node name="WaterAmount" type="ProgressBar" parent="CanvasLayer/SelectedAsteroid/MarginContainer/VBoxContainer/Water"]
+[node name="WaterAmount" type="ProgressBar" parent="CanvasLayer/SelectedAsteroid/MarginContainer/HBoxContainer/VBoxContainer/Water"]
 unique_name_in_owner = true
 margin_left = 84.0
 margin_right = 184.0
@@ -177,12 +184,66 @@ custom_styles/fg = SubResource( 4 )
 value = 10.0
 percent_visible = false
 
-[node name="ResourcesRemaining" type="Label" parent="CanvasLayer/SelectedAsteroid/MarginContainer/VBoxContainer"]
+[node name="ResourcesRemaining" type="Label" parent="CanvasLayer/SelectedAsteroid/MarginContainer/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 margin_top = 144.0
 margin_right = 184.0
 margin_bottom = 158.0
 text = "Resources Remaining: 0000"
+
+[node name="Growth" type="VBoxContainer" parent="CanvasLayer/SelectedAsteroid/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+margin_left = 194.0
+margin_right = 359.0
+margin_bottom = 158.0
+
+[node name="Label" type="Label" parent="CanvasLayer/SelectedAsteroid/MarginContainer/HBoxContainer/Growth"]
+margin_right = 165.0
+margin_bottom = 14.0
+text = "Growth"
+
+[node name="GrowthProgress" type="HBoxContainer" parent="CanvasLayer/SelectedAsteroid/MarginContainer/HBoxContainer/Growth"]
+unique_name_in_owner = true
+margin_top = 24.0
+margin_right = 165.0
+margin_bottom = 44.0
+
+[node name="Label" type="Label" parent="CanvasLayer/SelectedAsteroid/MarginContainer/HBoxContainer/Growth/GrowthProgress"]
+margin_top = 3.0
+margin_right = 55.0
+margin_bottom = 17.0
+text = "Progress"
+
+[node name="GrowthProgressbar" type="ProgressBar" parent="CanvasLayer/SelectedAsteroid/MarginContainer/HBoxContainer/Growth/GrowthProgress"]
+unique_name_in_owner = true
+margin_left = 65.0
+margin_right = 165.0
+margin_bottom = 20.0
+rect_min_size = Vector2( 100, 20 )
+custom_styles/fg = SubResource( 5 )
+value = 10.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/SelectedAsteroid/MarginContainer/HBoxContainer/Growth"]
+margin_top = 54.0
+margin_right = 165.0
+margin_bottom = 68.0
+
+[node name="GrowthType" type="Label" parent="CanvasLayer/SelectedAsteroid/MarginContainer/HBoxContainer/Growth/HBoxContainer"]
+unique_name_in_owner = true
+margin_right = 95.0
+margin_bottom = 14.0
+text = "Type: Collector"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/SelectedAsteroid/MarginContainer/HBoxContainer/Growth"]
+margin_top = 78.0
+margin_right = 165.0
+margin_bottom = 92.0
+
+[node name="GrowthStatus" type="Label" parent="CanvasLayer/SelectedAsteroid/MarginContainer/HBoxContainer/Growth/HBoxContainer2"]
+unique_name_in_owner = true
+margin_right = 96.0
+margin_bottom = 14.0
+text = "Status: Healthy"
 
 [node name="PlayerStatus" type="PanelContainer" parent="CanvasLayer"]
 margin_right = 14.0
