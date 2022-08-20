@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://doodads/Connection.tscn" type="PackedScene" id=1]
+[ext_resource path="res://actors/Growth.gd" type="Script" id=2]
+
+[sub_resource type="Curve" id=1]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.490476, 0.390909 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
+
+[node name="Growth" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Connections" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="Connection" parent="Connections" instance=ExtResource( 1 )]
+width_curve = SubResource( 1 )
+
+[node name="Foliage" type="Node2D" parent="."]
+unique_name_in_owner = true
