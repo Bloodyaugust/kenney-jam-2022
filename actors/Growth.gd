@@ -4,6 +4,8 @@ enum GROWTH_STATUSES {GROWING, HEALTHY, WITHERED, INFECTED}
 enum GROWTH_TYPES {COLLECTOR, DEFENDER, LEAF}
 
 const COLLECTION_RATE: float = 1.0
+const GROWTH_RADIUS_BASE: float = 75.0
+const GROWTH_RADIUS_SCALAR: float = 2.0
 const GROWTH_STATUS_NAMES: Dictionary = {
   GROWTH_STATUSES.GROWING: 'Growing',
   GROWTH_STATUSES.HEALTHY: 'Healthy',
@@ -37,6 +39,7 @@ onready var _connections: Node2D = $"%Connections"
 
 var _asteroid_data: AsteroidData
 var _foliage: Node2D
+var _growth_radius: float
 var _growth_time: float
 var _status: int = GROWTH_STATUSES.GROWING
 var _type: int
@@ -48,6 +51,10 @@ func get_growth_details() -> Dictionary:
     "status": GROWTH_STATUS_NAMES[_status],
     "type": GROWTH_TYPE_NAMES[_type]
   }
+
+func _draw():
+  if Store.selected_asteroid == asteroid:
+    draw_arc(Vector2.ZERO, _growth_radius, 0, 2 * PI, 32, Color.red)
 
 func _process(delta):
   if _status == GROWTH_STATUSES.GROWING:
@@ -69,6 +76,8 @@ func _process(delta):
     Store.resources.phosphates += _collected_resources.phosphates
     Store.resources.water += _collected_resources.water
 
+  update()
+
 func _ready():
   if starting_asteroid:
     asteroid = get_node(starting_asteroid)
@@ -78,6 +87,8 @@ func _ready():
 
   asteroid.growth = self
   _asteroid_data = asteroid.data as AsteroidData
+
+  _growth_radius = (_asteroid_data.size * GROWTH_RADIUS_BASE) * GROWTH_RADIUS_SCALAR
   
   _foliage = asteroid.find_node("Foliage", true, false)
   
