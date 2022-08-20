@@ -38,6 +38,13 @@ func _ready():
   _collision_shape.shape.radius = (data.size * 25) + 5
   _spin_rate = rand_range(-1, 1)
   _sprite.scale = _sprite.scale * data.size
+  
+  var _greatest_resource: String = "water"
+  for _resource in Constants.RESOURCE_TYPES:
+    if data[_resource] > data[_greatest_resource]:
+      _greatest_resource = _resource
+      
+  _sprite.modulate = _sprite.modulate.linear_interpolate(Constants.RESOURCE_COLORS[_greatest_resource], 0.8)
 
 func _on_Area2D_input_event(viewport, event: InputEvent, shape_idx):
   if event is InputEventMouseButton and event.is_pressed():
