@@ -26,6 +26,9 @@ bg_color = Color( 0.0941176, 0.454902, 0.596078, 1 )
 [node name="Node2D" type="Node2D"]
 
 [node name="BetterCam" parent="." instance=ExtResource( 5 )]
+zoom_follow_scalar = 0.05
+zoom_min = 0.5
+zoom_max = 2.0
 
 [node name="Asteroid" parent="." instance=ExtResource( 1 )]
 data_resource = ExtResource( 2 )

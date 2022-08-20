@@ -7,5 +7,5 @@ script = ExtResource( 1 )
 nitrogen = 1.0
 potassium = 1.0
 phosphates = 1.0
-size = 3.0
+size = 2.0
 water = 5.0
