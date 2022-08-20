@@ -10,8 +10,22 @@ onready var _collision_shape: CollisionShape2D = $"Area2D/CollisionShape2D"
 onready var _sprite: Sprite = $"Sprite"
 
 var _resources: float
+var _resource_ratios: Dictionary
 var _selected: bool
 var _spin_rate: float
+
+func collect_resources(amount) -> Dictionary:
+  var _collected_resources = clamp(_resources - amount, 0, amount)
+
+  _resources -= _collected_resources
+
+  return {
+    "nitrogen": _resource_ratios.nitrogen * _collected_resources,
+    "potassium": _resource_ratios.potassium * _collected_resources,
+    "phosphates": _resource_ratios.phosphates * _collected_resources,
+    "water": _resource_ratios.water * _collected_resources,
+    "total": _collected_resources
+  }
 
 func _draw():
   if _selected:
@@ -41,6 +55,7 @@ func _ready():
   _sprite.scale = _sprite.scale * data.size
   
   _resources = data.size * 1000
+  _resource_ratios = data.get_resource_ratios()
   
   var _greatest_resource: String = "water"
   for _resource in Constants.RESOURCE_TYPES:

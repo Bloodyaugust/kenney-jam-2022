@@ -32,7 +32,7 @@ func _on_asteroid_selected(asteroid):
 
 func _process(delta):
   if visible:
-    _resources.text = "Resources remaining: %s" % Store.selected_asteroid._resources
+    _resources.text = "Resources remaining: %d" % Store.selected_asteroid._resources
 
     if Store.selected_asteroid.growth:
       _update_growth_details(Store.selected_asteroid)

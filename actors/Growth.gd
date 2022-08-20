@@ -3,6 +3,7 @@ extends Node2D
 enum GROWTH_STATUSES {GROWING, HEALTHY, WITHERED, INFECTED}
 enum GROWTH_TYPES {COLLECTOR, DEFENDER, LEAF}
 
+const COLLECTION_RATE: float = 1.0
 const GROWTH_STATUS_NAMES: Dictionary = {
   GROWTH_STATUSES.GROWING: 'Growing',
   GROWTH_STATUSES.HEALTHY: 'Healthy',
@@ -59,6 +60,14 @@ func _process(delta):
     _child.scale = _child.scale - (sin((Time.get_ticks_msec() as float + _child.get_meta("scale_offset")) / 512) * FOLIAGE_SCALE_MODIFIER)
 
   _connections.get_child(0).width = 10 - (sin((Time.get_ticks_msec() as float) / 512))
+
+  if _type == GROWTH_TYPES.COLLECTOR && (_status == GROWTH_STATUSES.HEALTHY || _status == GROWTH_STATUSES.INFECTED):
+    var _collected_resources: Dictionary = asteroid.collect_resources(COLLECTION_RATE * delta)
+
+    Store.resources.nitrogen += _collected_resources.nitrogen
+    Store.resources.potassium += _collected_resources.potassium
+    Store.resources.phosphates += _collected_resources.phosphates
+    Store.resources.water += _collected_resources.water
 
 func _ready():
   if starting_asteroid:
