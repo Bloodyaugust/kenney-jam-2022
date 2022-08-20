@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://sprites/foliage_complete.png" type="Texture" id=1]
+
+[sub_resource type="Curve" id=1]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.490476, 0.390909 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
+
+[node name="Connection" type="Line2D"]
+position = Vector2( -53, 143 )
+points = PoolVector2Array( 54, -143, 208, -52, 391, 46 )
+width_curve = SubResource( 1 )
+texture = ExtResource( 1 )
+texture_mode = 1
+begin_cap_mode = 2
+end_cap_mode = 2

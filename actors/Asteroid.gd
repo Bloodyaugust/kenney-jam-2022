@@ -39,6 +39,8 @@ func _ready():
   _spin_rate = rand_range(-1, 1)
   _sprite.scale = _sprite.scale * data.size
   
+  _resources = data.size * 1000
+  
   var _greatest_resource: String = "water"
   for _resource in Constants.RESOURCE_TYPES:
     if data[_resource] > data[_greatest_resource]:
