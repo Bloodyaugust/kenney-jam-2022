@@ -30,6 +30,8 @@ func collect_resources(amount) -> Dictionary:
 func _draw():
   if _selected:
     draw_arc(Vector2.ZERO, _collision_shape.shape.radius, 0, 2 * PI, 32, Color.green)
+  elif self in GrowthController.growable_asteroids:
+    draw_arc(Vector2.ZERO, _collision_shape.shape.radius + 10, 0, 2 * PI, 32, Color.greenyellow)
 
 func _on_asteroid_selected(asteroid):
   if asteroid == self:
@@ -42,8 +44,7 @@ func _on_asteroid_selected(asteroid):
 func _process(delta):
   rotate(_spin_rate * delta)
   
-  if _selected:
-    update()
+  update()
   
 func _ready():
   Store.connect("asteroid_selected", self, "_on_asteroid_selected")

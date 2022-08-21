@@ -1,6 +1,8 @@
 extends Node2D
 
 signal asteroid_selected(asteroid)
+signal growth_finished(growth)
+signal propagate(asteroid)
 
 var selected_asteroid
 var resources: Dictionary = {

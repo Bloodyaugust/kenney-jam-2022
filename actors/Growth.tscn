@@ -6,7 +6,7 @@
 [sub_resource type="Curve" id=1]
 _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.490476, 0.390909 ), 0.0, 0.0, 0, 0, Vector2( 1, 1 ), 0.0, 0.0, 0, 0 ]
 
-[node name="Growth" type="Node2D"]
+[node name="Growth" type="Node2D" groups=["growths"]]
 script = ExtResource( 2 )
 
 [node name="Connections" type="Node2D" parent="."]

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://data/asteroid.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+nitrogen = 0.0
+potassium = 1.0
+phosphates = 1.0
+size = 3.0
+water = 3.0

@@ -8,6 +8,8 @@ onready var _growth_type: Label = $"%GrowthType"
 onready var _nitrogen: ProgressBar = $"%NitrogenAmount"
 onready var _potassium: ProgressBar = $"%PotassiumAmount"
 onready var _phosphates: ProgressBar = $"%PhosphatesAmount"
+onready var _propagation: Control = $"%Propagation"
+onready var _propagate: Button = $"%Propagate"
 onready var _resources: Label = $"%ResourcesRemaining"
 onready var _water: ProgressBar = $"%WaterAmount"
 
@@ -29,18 +31,36 @@ func _on_asteroid_selected(asteroid):
     
   else:
     visible = false
+    _propagation.visible = false
+
+func _on_propagate_pressed():
+  Store.emit_signal("propagate", Store.selected_asteroid)
 
 func _process(delta):
   if visible:
     _resources.text = "Resources remaining: %d" % Store.selected_asteroid._resources
 
     if Store.selected_asteroid.growth:
+      _propagation.visible = false
       _update_growth_details(Store.selected_asteroid)
+    elif Store.selected_asteroid in GrowthController.growable_asteroids:
+      _propagation.visible = true
+      _update_propagation()
 
 func _ready():
   Store.connect("asteroid_selected", self, "_on_asteroid_selected")
+  _propagate.connect("pressed", self, "_on_propagate_pressed")
   
   visible = false
+
+func _update_propagation():
+  var _can_propagate: bool = true
+  for _resource_key in Constants.PROPAGATION_COST.keys():
+    if Store.resources[_resource_key] < Constants.PROPAGATION_COST[_resource_key]:
+      _can_propagate = false
+      break
+
+  _propagate.disabled = !_can_propagate
 
 func _update_growth_details(asteroid):
   var _growth_details: Dictionary = asteroid.growth.get_growth_details()

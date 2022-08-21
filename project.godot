@@ -29,6 +29,7 @@ config/icon="res://icon.png"
 GDUtil="*res://lib/GDUtil.gd"
 Constants="*res://data/Constants.gd"
 Store="*res://scripts/Store.gd"
+GrowthController="*res://scripts/GrowthController.gd"
 
 [gui]
 

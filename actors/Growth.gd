@@ -34,12 +34,12 @@ export var starting_asteroid: NodePath
 export(GROWTH_TYPES) var starting_type: int
 
 var asteroid: Node2D
+var growth_radius: float
 
 onready var _connections: Node2D = $"%Connections"
 
 var _asteroid_data: AsteroidData
 var _foliage: Node2D
-var _growth_radius: float
 var _growth_time: float
 var _status: int = GROWTH_STATUSES.GROWING
 var _type: int
@@ -54,7 +54,7 @@ func get_growth_details() -> Dictionary:
 
 func _draw():
   if Store.selected_asteroid == asteroid:
-    draw_arc(Vector2.ZERO, _growth_radius, 0, 2 * PI, 32, Color.red)
+    draw_arc(Vector2.ZERO, growth_radius, 0, 2 * PI, 32, Color.red)
 
 func _process(delta):
   if _status == GROWTH_STATUSES.GROWING:
@@ -62,6 +62,7 @@ func _process(delta):
 
     if _growth_time >= GROWTH_TIME:
       _status = GROWTH_STATUSES.HEALTHY
+      Store.emit_signal("growth_finished", self)
   
   for _child in _foliage.get_children():
     _child.scale = _child.scale - (sin((Time.get_ticks_msec() as float + _child.get_meta("scale_offset")) / 512) * FOLIAGE_SCALE_MODIFIER)
@@ -88,20 +89,20 @@ func _ready():
   asteroid.growth = self
   _asteroid_data = asteroid.data as AsteroidData
 
-  _growth_radius = (_asteroid_data.size * GROWTH_RADIUS_BASE) * GROWTH_RADIUS_SCALAR
+  growth_radius = (_asteroid_data.size * GROWTH_RADIUS_BASE) * GROWTH_RADIUS_SCALAR
   
   _foliage = asteroid.find_node("Foliage", true, false)
   
-  var _num_foliage: int = (randi() % 6) + 1 + _asteroid_data.size as int
+  var _num_foliage: int = (randi() % 6) + 1 + (_asteroid_data.size * _asteroid_data.size * _asteroid_data.size) as int
   for _i in range(_num_foliage):
     var _new_foliage: Sprite = Sprite.new()
-    var _new_position: Vector2 = global_position + (Vector2(rand_range(-1, 1), rand_range(-1, 1)).normalized() * (_asteroid_data.size * rand_range(20.0, 25.0)))
+    var _new_position: Vector2 = Vector2(rand_range(-1, 1), rand_range(-1, 1)).normalized() * (_asteroid_data.size * rand_range(20.0, 25.0))
     var _tween: SceneTreeTween = create_tween().set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_IN)
 
     _new_foliage.texture = FOLIAGE_SPRITES[randi() % FOLIAGE_SPRITES.size()]
     _new_foliage.scale = Vector2(0.0, 0.0)
     _new_foliage.global_position = _new_position
-    _new_foliage.rotation = global_position.angle_to_point(_new_position) - PI / 2
+    _new_foliage.rotation = Vector2.ZERO.angle_to_point(_new_position) - PI / 2
     _new_foliage.set_meta("scale_offset", rand_range(0, 10000))
     _foliage.add_child(_new_foliage)
     
