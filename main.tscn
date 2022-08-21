@@ -47,7 +47,7 @@ position = Vector2( -349, 161 )
 data_resource = ExtResource( 4 )
 
 [node name="Asteroid5" parent="." instance=ExtResource( 1 )]
-position = Vector2( 345, 189 )
+position = Vector2( 234, 160 )
 data_resource = ExtResource( 6 )
 
 [node name="Asteroid2" parent="." instance=ExtResource( 1 )]

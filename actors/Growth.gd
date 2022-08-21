@@ -31,6 +31,14 @@ const FOLIAGE_SPRITES: Array = [
  ]
 const FOLIAGE_SCALE: Vector2 = Vector2(0.4, 0.4)
 const FOLIAGE_SCALE_MODIFIER: Vector2 = Vector2(0.0005, 0.0005)
+const UPKEEP_COSTS: Dictionary = {
+  GROWTH_TYPES.COLLECTOR: {
+    "nitrogen": 0.2,
+    "potassium": 0.05,
+    "phosphates": 0.05,
+    "water": 0.5,
+  }
+}
 
 export var starting_asteroid: NodePath
 export(GROWTH_TYPES) var starting_type: int
@@ -43,6 +51,12 @@ onready var _connections: Node2D = $"%Connections"
 var _asteroid_data: AsteroidData
 var _foliage: Node2D
 var _growth_time: float
+var _last_resources_collected: Dictionary = {
+  "nitrogen": 0,
+  "potassium": 0,
+  "phosphates": 0,
+  "water": 0,
+}
 var _status: int = GROWTH_STATUSES.GROWING
 var _type: int
 
@@ -52,6 +66,14 @@ func get_growth_details() -> Dictionary:
     "growth_progress": _growth_time / GROWTH_TIME,
     "status": GROWTH_STATUS_NAMES[_status],
     "type": GROWTH_TYPE_NAMES[_type]
+  }
+
+func get_growth_resources_net() -> Dictionary:
+  return {
+    "nitrogen": (_last_resources_collected.nitrogen * 60) - UPKEEP_COSTS[_type].nitrogen,
+    "potassium": (_last_resources_collected.potassium * 60) - UPKEEP_COSTS[_type].potassium,
+    "phosphates": (_last_resources_collected.phosphates * 60) - UPKEEP_COSTS[_type].phosphates,
+    "water": (_last_resources_collected.water * 60) - UPKEEP_COSTS[_type].water,
   }
 
 func _draw():
@@ -74,12 +96,18 @@ func _process(delta):
       _connection.width = CONNECTION_WIDTH - (sin((Time.get_ticks_msec() as float) / 512))
 
   if _type == GROWTH_TYPES.COLLECTOR && (_status == GROWTH_STATUSES.HEALTHY || _status == GROWTH_STATUSES.INFECTED):
-    var _collected_resources: Dictionary = asteroid.collect_resources(COLLECTION_RATE * delta)
+    _last_resources_collected = asteroid.collect_resources(COLLECTION_RATE * delta)
 
-    Store.resources.nitrogen += _collected_resources.nitrogen
-    Store.resources.potassium += _collected_resources.potassium
-    Store.resources.phosphates += _collected_resources.phosphates
-    Store.resources.water += _collected_resources.water
+    Store.resources.nitrogen += _last_resources_collected.nitrogen
+    Store.resources.potassium += _last_resources_collected.potassium
+    Store.resources.phosphates += _last_resources_collected.phosphates
+    Store.resources.water += _last_resources_collected.water
+
+  if _status != GROWTH_STATUSES.WITHERED:
+    Store.resources.nitrogen -= UPKEEP_COSTS[_type].nitrogen * delta
+    Store.resources.potassium -= UPKEEP_COSTS[_type].potassium * delta
+    Store.resources.phosphates -= UPKEEP_COSTS[_type].phosphates * delta
+    Store.resources.water -= UPKEEP_COSTS[_type].water * delta
 
   update()
 

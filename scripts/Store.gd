@@ -6,10 +6,10 @@ signal propagate(asteroid)
 
 var selected_asteroid
 var resources: Dictionary = {
-  "nitrogen": 0,
-  "potassium": 0,
-  "phosphates": 0,
-  "water": 0,
+  "nitrogen": 10,
+  "potassium": 10,
+  "phosphates": 10,
+  "water": 20,
 }
 
 func _on_asteroid_selected(asteroid):
