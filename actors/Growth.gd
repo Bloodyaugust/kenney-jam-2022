@@ -4,6 +4,8 @@ enum GROWTH_STATUSES {GROWING, HEALTHY, WITHERED, INFECTED}
 enum GROWTH_TYPES {COLLECTOR, DEFENDER, LEAF}
 
 const COLLECTION_RATE: float = 1.0
+const CONNECTION_SCENE: PackedScene = preload("res://doodads/Connection.tscn")
+const CONNECTION_WIDTH: float = 20.0
 const GROWTH_RADIUS_BASE: float = 75.0
 const GROWTH_RADIUS_SCALAR: float = 2.0
 const GROWTH_STATUS_NAMES: Dictionary = {
@@ -67,7 +69,9 @@ func _process(delta):
   for _child in _foliage.get_children():
     _child.scale = _child.scale - (sin((Time.get_ticks_msec() as float + _child.get_meta("scale_offset")) / 512) * FOLIAGE_SCALE_MODIFIER)
 
-  _connections.get_child(0).width = 10 - (sin((Time.get_ticks_msec() as float) / 512))
+  if _status != GROWTH_STATUSES.GROWING:
+    for _connection in _connections.get_children():
+      _connection.width = CONNECTION_WIDTH - (sin((Time.get_ticks_msec() as float) / 512))
 
   if _type == GROWTH_TYPES.COLLECTOR && (_status == GROWTH_STATUSES.HEALTHY || _status == GROWTH_STATUSES.INFECTED):
     var _collected_resources: Dictionary = asteroid.collect_resources(COLLECTION_RATE * delta)
@@ -107,3 +111,16 @@ func _ready():
     _foliage.add_child(_new_foliage)
     
     _tween.tween_property(_new_foliage, "scale", FOLIAGE_SCALE, rand_range(GROWTH_TIME / 2, GROWTH_TIME))
+
+  for _growth in GrowthController.growths:
+    if _growth != self && _growth.global_position.distance_to(global_position) <= _growth.growth_radius:
+      var _new_connection: Line2D = CONNECTION_SCENE.instance()
+      var _connection_tween: SceneTreeTween = create_tween().set_trans(Tween.TRANS_QUINT).set_ease(Tween.EASE_OUT)
+
+      _connections.add_child(_new_connection)
+      _new_connection.global_position = Vector2.ZERO
+      _new_connection.points[0] = global_position
+      _new_connection.points[1] = global_position.linear_interpolate(_growth.global_position, 0.5)
+      _new_connection.points[2] = _growth.global_position
+
+      _connection_tween.tween_property(_new_connection, "width", CONNECTION_WIDTH, rand_range(GROWTH_TIME / 2, GROWTH_TIME / 1.5))

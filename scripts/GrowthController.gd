@@ -8,7 +8,10 @@ onready var growths_container = get_tree().get_root().find_node("GrowthsContaine
 
 var growable_asteroids: Array
 
-func _evaluate_asteroid_growability(_any):
+func _evaluate_asteroid_growability(growth):
+  if growth:
+    growths.append(growth)
+
   growable_asteroids = []
   
   for _asteroid in asteroids:
